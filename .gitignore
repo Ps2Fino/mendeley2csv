@@ -1,3 +1,5 @@
 *.csv
 *.bib
 *.txt
+!CMakeLists.txt
+bin/
