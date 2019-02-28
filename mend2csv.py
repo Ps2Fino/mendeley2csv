@@ -15,40 +15,60 @@ import sys
 from packages.bibmanager import BibManager
 from packages import Parsers
 
-def main (input_file_path, output_file_path, file_type):
+## Use this to dump the keywords from the input file
+def dump_bib_keywords (manager):
+    keywords = []
+    for entry in manager.entries:
+        keyword_list = entry['keywords'].split (';')
+        for keyword in keyword_list:
+            keywords.append (keyword)
+
+    with open ('keywords.txt', 'w') as fp:
+        for keyword in keywords:
+            fp.write (keyword + '\n')
+
+def dump_bib_authors (manager):
+    keywords = []
+    for entry in manager.entries:
+        keyword_list = entry['author'].split (';')
+        for keyword in keyword_list:
+            keywords.append (keyword)
+
+    with open ('authors.txt', 'w') as fp:
+        for keyword in keywords:
+            fp.write (keyword + '\n')
+
+def main (args, input_file_path, output_file_path):
     # File I/O
     with open (input_file_path, 'r', encoding='utf8') as in_file:
         in_lines = in_file.readlines ()
 
     manager = BibManager ()
+    manager.lines2entries (in_lines, data_type=args.input_format) # Load into ADT
 
-    if file_type is 'b':
-        manager.lines2entries (in_lines, data_type='csv')
-        manger.entries2lines (data_type='bibtex')
+    ## Process
+    if args.dump_keywords:
+        dump_bib_keywords (manager)
 
-    else:
-        manager.lines2entries (in_lines, data_type='bibtex')
-        manager.entries2lines (data_type='csv')
-
-    ## File I/O
+    ## Save the file
+    manager.entries2lines (data_type=args.output_format) # Export to desired DT
     out_lines = manager.lines
     with open (output_file_path, 'w', encoding='utf8') as out_file:
         for line in out_lines:
             out_file.write (line + '\n')
-
-    if file_type is 'b':
-        print ('Converted csv file to bib!')
-    else:
-        print ('Converted bib file to csv!')
     
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser (description='Converts a bib file to a csv spreadsheet')
-    parser.add_argument (dest='input_file', help='The bib or csv file to convert')
-    parser.add_argument (dest='output_file', help='The bib or csv file to output. If a file exists, it will be silently overwritten')
-    group = parser.add_mutually_exclusive_group (required=True)
-    group.add_argument ('-b', '--to-bib', dest='to_bib', action='store_true', help='Convert a csv file to a bib file')
-    group.add_argument ('-c', '--to-csv', dest='to_csv', action='store_true', help='Convert a bib file to a csv file')
+    parser = argparse.ArgumentParser (description='Processes Mendeley bibliographic entries')
+    parser.add_argument (dest='input_file', help='The file to load bib entries from. See README for implemented formats')
+    parser.add_argument (dest='output_file', help='The file to export bib entries to. If a file exists, it will be silently overwritten')
+
+    parser.add_argument ('--input-format', dest='input_format', action='store', help='Input file format')
+    parser.add_argument ('--output-format', dest='output_format', action='store', help='Output file format')
+
+    command_group = parser.add_mutually_exclusive_group (required=False)
+    command_group.add_argument ('--dump-keywords', dest='dump_keywords', action='store_true', help='Dump the entry keywords to a file')
+    command_group.add_argument ('--dump-authors', dest='dump_authors', action='store_true', help='Dump the entry authors to a file')
 
     args = parser.parse_args ()
 
@@ -59,7 +79,5 @@ if __name__ == '__main__':
         print ('Input file doesn\'t exist or is a directory. Aborting...')
         sys.exit ()
 
-    file_type = 'b' if args.to_bib else 'c'
-
     ## Arguments have been parsed. Now call the program
-    main (input_file_path, output_file_path, file_type)
+    main (args, input_file_path, output_file_path)

@@ -39,7 +39,7 @@ class BibManager ():
 			parser = None
 
 		if parser == None:
-			raise ValueError ('Unknown type' + data_type + '. Cannot parse')
+			raise ValueError ('Unknown type ' + data_type + '. Cannot parse')
 		else:
 			self.entries = parser.parse_lines (data_lines) ## Otherwise parse the lines into bib entries
 
@@ -53,7 +53,7 @@ class BibManager ():
 			parser = None
 
 		if parser == None:
-			raise ValueError ('Parser has not been initialized. Try loading some data first')
+			raise ValueError ('Unknown type ' + data_type + '. Cannot parse')
 		else:
 			self.lines = parser.parse_entries (self.entries)
 
