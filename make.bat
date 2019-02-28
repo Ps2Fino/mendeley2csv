@@ -1,1 +1,2 @@
-@python mend2csv.py %1 %2 %3
+@REM My most common use case
+@python mend2csv.py --input-format=bibtex --dump-keywords %1

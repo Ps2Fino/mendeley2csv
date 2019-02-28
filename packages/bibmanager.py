@@ -24,10 +24,22 @@ class BibManager ():
 		self.entries.append (entry)
 
 	def dump_keywords (self):
-		pass
+		keywords = []
+		for entry in self.entries:
+			keyword_list = entry['keywords'].split (';')
+			for keyword in keyword_list:
+				keywords.append (keyword)
+
+		return (keywords)
 
 	def dump_authors (self):
-		pass
+		authors = []
+		for entry in self.entries:
+			author_list = entry['author'].split (';')
+			for author in author_list:
+				authors.append (author)
+
+		return (authors)
 
 	def lines2entries (self, data_lines, data_type='bibtex'):
 		if data_type in Parsers:
