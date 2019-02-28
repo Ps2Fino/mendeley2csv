@@ -2,4 +2,5 @@
 *.bib
 *.txt
 !CMakeLists.txt
+!license/LICENSE.txt
 bin/
