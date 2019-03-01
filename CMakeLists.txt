@@ -19,7 +19,7 @@ project (
 install (
     FILES
         mend2csv.py
-        license/LICENSE.txt
+        installer-files/LICENSE.txt
     DESTINATION
         .
 )
@@ -34,23 +34,33 @@ install (
         "*.py"
 )
 
+##############################
+## CPack specific variables ##
+##############################
+
+set (
+    CPACK_GENERATOR
+    ZIP
+    NSIS
+)
+
+##############################
+## NSIS ######################
+##############################
+
 set (
     CPACK_PACKAGE_NAME
     mendeley2csv
 )
 
-if (WIN32)
-
 set (
     CPACK_PACKAGE_INSTALL_DIRECTORY
-    "Lancophone\\${CPACK_PACKAGE_NAME}"
+    Lancophone
 )
-
-endif ()
 
 set (
     CPACK_RESOURCE_FILE_LICENSE
-    ${CMAKE_SOURCE_DIR}/license/LICENSE.txt
+    ${CMAKE_SOURCE_DIR}/installer-files/LICENSE.txt
 )
 
 set (
@@ -58,11 +68,9 @@ set (
     "http://github.com/Ps2Fino/mendeley2csv"
 )
 
-if (WIN32)
-
 set (
     CPACK_PACKAGE_DESCRIPTION_FILE
-    ${CMAKE_SOURCE_DIR}/cpack/description.txt
+    ${CMAKE_SOURCE_DIR}/installer-files/description.txt
 )
 
 set (
@@ -85,6 +93,13 @@ set (
     ON
 )
 
-endif ()
+##############################
+## Zip #######################
+##############################
+
+set (
+    CPACK_SOURCE_IGNORE_FILES
+    "packages/__pycache__/**;packages/parsers/__pycache__/**"
+)
 
 include (CPack)

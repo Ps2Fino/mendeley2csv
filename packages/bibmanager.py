@@ -24,9 +24,10 @@ class BibManager ():
 		self.entries.append (entry)
 
 	def dump_keywords (self):
+		## TODO: Process the keywords, merging duplicates
 		keywords = []
 		for entry in self.entries:
-			keyword_list = entry['keywords'].split (';')
+			keyword_list = entry['keywords'].split (',')
 			for keyword in keyword_list:
 				keywords.append (keyword)
 
