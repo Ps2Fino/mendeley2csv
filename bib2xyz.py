@@ -22,7 +22,7 @@ file into a different format.
 
 ## Use this to dump the keywords from the input file
 def dump_bib_keywords (manager, output_dir_path):
-    keywords = manager.dump_keywords ()
+    keywords = manager.dump_keywords (lowercase=True)
 
     if output_dir_path is not None:
         output_file_path = os.path.join (output_dir_path, 'keywords.txt')

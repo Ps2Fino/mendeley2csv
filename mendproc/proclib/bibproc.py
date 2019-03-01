@@ -5,6 +5,7 @@
 ## @date February 2019
 
 from mendproc.bibmanager import BibManager
+import nltk
 
 class BibProc ():
     def __init__ (self, bibliography_manager):

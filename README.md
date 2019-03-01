@@ -1,4 +1,4 @@
-# Bibliograpyh Processing
+# Bibliography Processing
 Python script for converting exported bib files from Mendeley into other formats and for some light processing.
 
 ## Rationale

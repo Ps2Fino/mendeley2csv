@@ -19,12 +19,15 @@ class BibManager ():
 	def add_entry (self):
 		self.entries.append (entry)
 
-	def dump_keywords (self):
+	def dump_keywords (self, lowercase=True):
 		keywords = []
 		for entry in self.entries:
 			keyword_list = entry['keywords'].split (',')
 			for keyword in keyword_list:
-				keywords.append ('\"' + keyword + '\"')
+				if lowercase:
+					keywords.append (keyword.lower ())
+				else:
+					keywords.append (keyword)
 
 		return (keywords)
 
