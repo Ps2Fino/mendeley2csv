@@ -9,7 +9,7 @@ cmake_minimum_required (
 )
 
 project (
-    Mendeley-2-CSV
+    bib2xyz
     VERSION
         0.1
     LANGUAGES
@@ -18,7 +18,7 @@ project (
 
 install (
     FILES
-        mend2csv.py
+        bib2xyz.py
         installer-files/LICENSE.txt
     DESTINATION
         .
@@ -26,7 +26,7 @@ install (
 
 install (
     DIRECTORY
-        packages
+        mendproc
     DESTINATION
         .
     FILES_MATCHING
@@ -50,7 +50,7 @@ set (
 
 set (
     CPACK_PACKAGE_NAME
-    mendeley2csv
+    bib2xyz
 )
 
 set (
@@ -75,12 +75,12 @@ set (
 
 set (
     CPACK_NSIS_DISPLAY_NAME
-    Mendeley2CSV
+    bib2xyz
 )
 
 set (
     CPACK_NSIS_PACKAGE_NAME
-    Mendeley2CSV
+    bib2xyz
 )
 
 set (
