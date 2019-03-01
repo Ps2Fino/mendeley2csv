@@ -10,6 +10,8 @@
 ## @date February 2019
 
 import importlib
+# import difflib
+from nltk import Text
 from packages.parsers.bibtexparser import BibTexParser
 from packages.parsers.csvparser import CSVParser
 from packages import Parsers
@@ -29,7 +31,7 @@ class BibManager ():
 		for entry in self.entries:
 			keyword_list = entry['keywords'].split (',')
 			for keyword in keyword_list:
-				keywords.append (keyword)
+				keywords.append ('\"' + keyword + '\"')
 
 		return (keywords)
 
