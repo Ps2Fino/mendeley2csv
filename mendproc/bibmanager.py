@@ -1,20 +1,14 @@
 ##
-## Extracts information of interest from
-## Mendeley exported bib files
-##
-## Note this program expects input csv files
-## to be complete with a header.
-## Execuution is subject to unknowns without...
+## Dictionary based bibliography manager
 ##
 ## @author Daniel J. Finnegan
 ## @date February 2019
 
 import importlib
 # import difflib
-from nltk import Text
-from packages.parsers.bibtexparser import BibTexParser
-from packages.parsers.csvparser import CSVParser
-from packages import Parsers
+from mendproc.parsers.bibtexparser import BibTexParser
+from mendproc.parsers.csvparser import CSVParser
+from mendproc import Parsers
 
 ## Internal manager over the bib dictionary
 class BibManager ():
@@ -26,7 +20,6 @@ class BibManager ():
 		self.entries.append (entry)
 
 	def dump_keywords (self):
-		## TODO: Process the keywords, merging duplicates
 		keywords = []
 		for entry in self.entries:
 			keyword_list = entry['keywords'].split (',')
@@ -46,8 +39,8 @@ class BibManager ():
 
 	def lines2entries (self, data_lines, data_type='bibtex'):
 		if data_type in Parsers:
-			modulename, classname = Parsers[data_type].split ('.')
-			module = importlib.import_module('packages.parsers.' + modulename)
+			modulepath, classname = Parsers[data_type].rsplit ('.', maxsplit=1)
+			module = importlib.import_module(modulepath)
 			class_ = getattr(module, classname)
 			parser = class_(data_type)
 		else:
@@ -60,8 +53,8 @@ class BibManager ():
 
 	def entries2lines (self, data_type='bibtex'):
 		if data_type in Parsers:
-			modulename, classname = Parsers[data_type].split ('.')
-			module = importlib.import_module('packages.parsers.' + modulename)
+			modulepath, classname = Parsers[data_type].rsplit ('.', maxsplit=1)
+			module = importlib.import_module(modulepath)
 			class_ = getattr(module, classname)
 			parser = class_(data_type)
 		else:

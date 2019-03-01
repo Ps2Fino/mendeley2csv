@@ -1,10 +1,7 @@
 ##
-## Extracts information of interest from
-## Mendeley exported bib files
-##
-## Note this program expects input csv files
-## to be complete with a header.
-## Execuution is subject to unknowns without...
+## Abstract parser for bib files.
+## Declares functions for parsing lines
+## into entries and conversely
 ##
 ## @author Daniel J. Finnegan
 ## @date February 2019

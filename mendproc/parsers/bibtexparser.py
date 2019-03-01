@@ -1,17 +1,12 @@
 ##
-## Extracts information of interest from
-## Mendeley exported bib files
-##
-## Note this program expects input csv files
-## to be complete with a header.
-## Execuution is subject to unknowns without...
+## Parser for bibtex files
 ##
 ## @author Daniel J. Finnegan
 ## @date February 2019
 
 import os
 import re
-from packages.parsers.bibparser import _BibParser
+from mendproc.parsers.bibparser import _BibParser
 
 class BibTexParser (_BibParser):
     def __init__ (self, data_type):

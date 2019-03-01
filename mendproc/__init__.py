@@ -4,6 +4,6 @@ __all__ = ['bibmanager']
 # a mapping from the key to the module.classname
 # here and implement the module in the parsers folder
 Parsers = {
-    'bibtex': 'bibtexparser.BibTexParser',
-    'csv': 'csvparser.CSVParser'
+    'bibtex': 'mendproc.parsers.bibtexparser.BibTexParser',
+    'csv': 'mendproc.parsers.csvparser.CSVParser'
 }

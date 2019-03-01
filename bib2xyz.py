@@ -12,8 +12,8 @@
 import argparse
 import os
 import sys
-from packages.bibmanager import BibManager
-from packages import Parsers
+from mendproc.bibmanager import BibManager
+from mendproc import Parsers
 
 cli_help="""
 Processes Mendeley bibliographic entries. Can also optionally export the loaded
@@ -21,23 +21,42 @@ file into a different format.
 """
 
 ## Use this to dump the keywords from the input file
-def dump_bib_keywords (manager):
+def dump_bib_keywords (manager, output_dir_path):
     keywords = manager.dump_keywords ()
-    with open ('keywords.txt', 'w', encoding='utf8') as fp:
+
+    if output_dir_path is not None:
+        output_file_path = os.path.join (output_dir_path, 'keywords.txt')
+    else:
+        output_file_path = 'keywords.txt'
+
+    with open (output_file_path, 'w', encoding='utf8') as fp:
         for keyword in keywords:
             fp.write (keyword + '\n')
 
-    print ('Dumped keywords to', os.path.abspath ('keywords.txt'))
+    print ('Dumped keywords to', output_file_path)
 
 def dump_bib_authors (manager):
     authors = manager.dump_authors ()
-    with open ('authors.txt', 'w', encoding='utf8') as fp:
+
+    if output_dir_path is not None:
+        output_file_path = os.path.join (output_dir_path, 'authors.txt')
+    else:
+        output_file_path = 'authors.txt'
+
+    with open (output_file_path, 'w', encoding='utf8') as fp:
         for author in authors:
             fp.write (author + '\n')
 
-    print ('Dumped author list to', os.path.abspath ('authors.txt'))
+    print ('Dumped author list to', output_file_path)
 
 def main (args, input_file_path):
+    if args.output_dir:
+        output_dir_path = os.path.abspath (args.output_dir)
+        if not os.path.isdir (output_dir_path):
+            os.mkdir (output_dir_path)
+    else:
+        output_dir_path = None
+
     # File I/O
     with open (input_file_path, 'r', encoding='utf8') as in_file:
         in_lines = in_file.readlines ()
@@ -47,14 +66,18 @@ def main (args, input_file_path):
 
     ## Process
     if args.dump_keywords:
-        dump_bib_keywords (manager)
+        dump_bib_keywords (manager, output_dir_path)
 
     if args.dump_authors:
-        dump_bib_authors (manager)
+        dump_bib_authors (manager, output_dir_path)
 
     ## Save the file
     if args.save_file is not None:
-        output_file_path = os.path.abspath (args.save_file)
+        if output_dir_path is not None:
+            output_file_path = os.path.join (output_dir_path, args.save_file)
+        else:
+            output_file_path = os.path.abspath (args.save_file)
+
         print ('Saving to', output_file_path)
         manager.entries2lines (data_type=args.output_format) # Export to desired DT
         out_lines = manager.lines
@@ -65,11 +88,11 @@ def main (args, input_file_path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser (description=cli_help)
     parser.add_argument (dest='input_file', help='The file to load bib entries from. See README for implemented formats')
-    # parser.add_argument (dest='output_file', help='The file to export bib entries to. If a file exists, it will be silently overwritten')
 
     input_format_group = parser.add_argument_group (title='Input formats')
     input_format_group.add_argument ('--input-format', dest='input_format', action='store', help='Input file format')
     input_format_group.add_argument ('--output-format', dest='output_format', action='store', help='Output file format')
+    input_format_group.add_argument ('--output-dir', dest='output_dir', action='store', help='Output')
 
     command_group = parser.add_argument_group (title='Commands')
     command_group.add_argument ('--dump-keywords', dest='dump_keywords', action='store_true', help='Dump the entry keywords to a file')

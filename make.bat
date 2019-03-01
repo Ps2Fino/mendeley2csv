@@ -1,2 +1,2 @@
 @REM My most common use case
-@python mend2csv.py --input-format=bibtex --dump-keywords %1
+@python bib2xyz.py --input-format=bibtex --dump-keywords --output-dir=output %1

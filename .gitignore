@@ -1,6 +1,13 @@
+## Patterns
 *.csv
 *.bib
 *.txt
+
+## Exemptions
+!license/description.txt
 !CMakeLists.txt
 !license/LICENSE.txt
+
+## Directories
 bin/
+output/
