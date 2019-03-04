@@ -55,7 +55,7 @@ class BibTexParser (_BibParser):
         title_pattern = re.compile (self.TITLE_PATTERN)
 
         for line in lines:
-            stripped_line = line.strip (' \n')
+            stripped_line = line.strip (' \t\n')
             match_obj = citation_key_pattern.search (stripped_line)
             if match_obj:
                 if entry != {}:
