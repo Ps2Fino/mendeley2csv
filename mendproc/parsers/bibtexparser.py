@@ -4,6 +4,7 @@
 ## @author Daniel J. Finnegan
 ## @date February 2019
 
+import sys
 import os
 import re
 from mendproc.parsers.bibparser import _BibParser
@@ -11,7 +12,8 @@ from mendproc.parsers.bibparser import _BibParser
 class BibTexParser (_BibParser):
     def __init__ (self, data_type):
         _BibParser.__init__ (self, data_type)
-        self.GENERAL_REGEX_PATTERN = '{((?=[\w\d:{])(.+))}'
+        # self.GENERAL_REGEX_PATTERN = '{((?=[\w\d:{])(.+))}'
+        self.GENERAL_REGEX_PATTERN = '{((?=[\w\d:"\[\]{])(.+))}'
         self.CITATION_KEY_PATTERN = '^@(.*){(\S+),'
 
         ## Note this is not an exhaustive list
@@ -24,17 +26,16 @@ class BibTexParser (_BibParser):
         self.TITLE_PATTERN = '^title'
         self.URL_PATTERN = '^url'
 
+    ## Extend this to escape special characters
+    def _clean_info (self, line):
+        clean_info = line.replace ("“", '\"')
+        return (clean_info)
+
     def _match_pattern (self, pattern, line):
         match_obj = pattern.search (line)
         info = match_obj.group (1) if match_obj else '' ## we've matched a new entry. Log it
 
-        ## We also remove {} if they are at the end and beginning of the string
-        if info != '':
-            if info.startswith ('{'):
-                info = info[1:]
-
-            if info.endswith ('}'):
-                info = info[:-1]
+        info = self.clean_info (info)
 
         return (info)
 
