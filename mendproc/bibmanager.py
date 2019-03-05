@@ -22,12 +22,11 @@ class BibManager ():
 	def dump_keywords (self, lowercase=True):
 		keywords = []
 		for entry in self.entries:
-			keyword_list = entry['keywords'].split (',')
-			for keyword in keyword_list:
-				if lowercase:
-					keywords.append (keyword.lower ())
-				else:
-					keywords.append (keyword)
+			if entry['keywords'] is not '':
+				keyword_list = entry['keywords'].split (',')
+				for keyword in keyword_list:
+					if lowercase:
+					else:
 
 		return (keywords)
 

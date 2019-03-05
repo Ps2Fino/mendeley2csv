@@ -35,7 +35,7 @@ class BibTexParser (_BibParser):
         match_obj = pattern.search (line)
         info = match_obj.group (1) if match_obj else '' ## we've matched a new entry. Log it
 
-        info = self.clean_info (info)
+        info = self._clean_info (info)
 
         return (info)
 
