@@ -26,9 +26,9 @@ class BibManager ():
 				keyword_list = entry['keywords'].split (',')
 				for keyword in keyword_list:
 					if lowercase:
-						keywords.append (keyword.lower ())
+						keywords.append (keyword.lower ().strip ())
 					else:
-						keywords.append (keyword)
+						keywords.append (keyword.strip ())
 
 		return (keywords)
 
