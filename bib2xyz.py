@@ -50,6 +50,9 @@ def dump_bib_authors (manager):
     print ('Dumped author list to', output_file_path)
 
 def process_args (bibmanager, arguments, output_dir_path):
+    if args.pattern is not '':
+        bibmanager.cutoff_keywords_regex (args.pattern)
+
     if args.cutoff_year is not '':
         bibmanager.cutoff_year (int(args.cutoff_year))
 
@@ -107,6 +110,7 @@ if __name__ == '__main__':
     command_group.add_argument ('--dump-authors', dest='dump_authors', action='store_true', help='Dump the entry authors to a file')
     command_group.add_argument ('--output-file', dest='save_file', action='store', help='The file to export bib entries to. If a file exists, it will be silently overwritten')
     command_group.add_argument ('--cutoff-year', dest='cutoff_year', action='store', help='Ignore entries older than year specified')
+    command_group.add_argument ('--keyword-regex', dest='pattern', action='store', help='Ignore entries that don\'t match')
 
     args = parser.parse_args ()
 

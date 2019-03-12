@@ -6,6 +6,7 @@
 
 import importlib
 # import difflib
+import re
 from mendproc.parsers.bibtexparser import BibTexParser
 from mendproc.parsers.csvparser import CSVParser
 from mendproc import Parsers
@@ -44,6 +45,21 @@ class BibManager ():
 				else:
 					if int_year > year:
 						entries.append (entry)
+
+		self.entries = []
+		self.entries = entries
+		return (entries)
+
+	## This method will remove all entries that don't match
+	## against pattern in their keywords
+	def cutoff_keywords_regex (self, pattern):
+		compiled_pattern = re.compile (pattern)
+		entries = []
+		for entry in self.entries:
+			if entry['keywords'] is not '':
+				match_obj = compiled_pattern.search (entry['keywords'])
+				if match_obj:
+					entries.append (entry)
 
 		self.entries = []
 		self.entries = entries

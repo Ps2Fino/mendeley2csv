@@ -11,7 +11,7 @@ cmake_minimum_required (
 project (
     bib2xyz
     VERSION
-        0.2.3
+        0.2.4
     LANGUAGES
         NONE
 )

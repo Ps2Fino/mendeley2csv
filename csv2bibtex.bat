@@ -5,4 +5,5 @@
                    --output-dir=output ^
                    --output-file=%~n1.bib ^
                    --cutoff-year=%2 ^
+                   --keyword-regex=%3 ^
                    %1

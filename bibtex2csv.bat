@@ -5,4 +5,5 @@
                    --output-dir=output ^
                    --output-file=%~n1.csv ^
                    --cutoff-year=%2 ^
+                   --keyword-regex=%3 ^
                    %1
