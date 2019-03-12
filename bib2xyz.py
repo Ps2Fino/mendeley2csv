@@ -49,6 +49,18 @@ def dump_bib_authors (manager):
 
     print ('Dumped author list to', output_file_path)
 
+def process_args (bibmanager, arguments, output_dir_path):
+    if args.cutoff_year is not '':
+        bibmanager.cutoff_year (int(args.cutoff_year))
+
+    if args.dump_keywords:
+        dump_bib_keywords (bibmanager, output_dir_path)
+
+    if args.dump_authors:
+        dump_bib_authors (bibmanager, output_dir_path)
+
+    return (bibmanager)
+
 def main (args, input_file_path):
     if args.output_dir:
         output_dir_path = os.path.abspath (args.output_dir)
@@ -65,11 +77,7 @@ def main (args, input_file_path):
     manager.lines2entries (in_lines, data_type=args.input_format) # Load into ADT
 
     ## Process
-    if args.dump_keywords:
-        dump_bib_keywords (manager, output_dir_path)
-
-    if args.dump_authors:
-        dump_bib_authors (manager, output_dir_path)
+    manager = process_args (manager, args, output_dir_path)
 
     ## Save the file
     if args.save_file is not None:
@@ -98,6 +106,7 @@ if __name__ == '__main__':
     command_group.add_argument ('--dump-keywords', dest='dump_keywords', action='store_true', help='Dump the entry keywords to a file')
     command_group.add_argument ('--dump-authors', dest='dump_authors', action='store_true', help='Dump the entry authors to a file')
     command_group.add_argument ('--output-file', dest='save_file', action='store', help='The file to export bib entries to. If a file exists, it will be silently overwritten')
+    command_group.add_argument ('--cutoff-year', dest='cutoff_year', action='store', help='Ignore entries older than year specified')
 
     args = parser.parse_args ()
 

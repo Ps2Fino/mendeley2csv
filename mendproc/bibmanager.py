@@ -32,6 +32,23 @@ class BibManager ():
 
 		return (keywords)
 
+	def cutoff_year (self, year, inclusive=True):
+		entries = []
+		for entry in self.entries:
+			if entry['year'] is not '':
+				int_year = int (entry['year'])
+				if inclusive:
+					if int_year >= year:
+						entries.append (entry)
+
+				else:
+					if int_year > year:
+						entries.append (entry)
+
+		self.entries = []
+		self.entries = entries
+		return (entries)
+
 	def dump_authors (self):
 		authors = []
 		for entry in self.entries:
