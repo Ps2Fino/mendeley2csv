@@ -50,10 +50,10 @@ def dump_bib_authors (manager):
     print ('Dumped author list to', output_file_path)
 
 def process_args (bibmanager, arguments, output_dir_path):
-    if args.pattern is not '':
+    if args.pattern is not '' and args.pattern is not None:
         bibmanager.cutoff_keywords_regex (args.pattern)
 
-    if args.cutoff_year is not '':
+    if args.cutoff_year is not '' and args.cutoff_year is not None:
         bibmanager.cutoff_year (int(args.cutoff_year))
 
     if args.dump_keywords:
