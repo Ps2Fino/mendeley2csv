@@ -11,7 +11,7 @@ cmake_minimum_required (
 project (
     bib2xyz
     VERSION
-        0.2.4
+        0.2.5
     LANGUAGES
         NONE
 )
@@ -19,7 +19,7 @@ project (
 install (
     FILES
         bib2xyz.py
-        installer-files/LICENSE.txt
+        license/LICENSE.txt
     DESTINATION
         .
 )
@@ -60,7 +60,7 @@ set (
 
 set (
     CPACK_RESOURCE_FILE_LICENSE
-    ${CMAKE_SOURCE_DIR}/installer-files/LICENSE.txt
+    ${CMAKE_SOURCE_DIR}/license/LICENSE.txt
 )
 
 set (
