@@ -16,6 +16,10 @@ project (
         NONE
 )
 
+add_subdirectory (
+    java
+)
+
 install (
     FILES
         bib2xyz.py
@@ -54,9 +58,24 @@ set (
 )
 
 set (
-    CPACK_PACKAGE_INSTALL_DIRECTORY
-    Lancophone
+    CPACK_PACKAGE_DESCRIPTION_SUMMARY
+    "Program for manipulating bibliographies"
 )
+
+#set (
+#    CPACK_PACKAGE_EXECUTABLES
+#    bib2xyz-gui;bib2xyz-gui.jar
+#)
+
+#set (
+#    CPACK_TOPLEVEL_TAG
+#    Lancophone
+#)
+
+#set (
+#    CPACK_PACKAGE_INSTALL_DIRECTORY
+#    Lancophone
+#)
 
 set (
     CPACK_RESOURCE_FILE_LICENSE
@@ -85,12 +104,12 @@ set (
 
 set (
     CPACK_NSIS_MODIFY_PATH
-    ON
+    OFF
 )
 
 set (
     CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL
-    ON
+    OFF
 )
 
 ##############################

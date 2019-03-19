@@ -2,6 +2,7 @@
 *.csv
 *.bib
 *.txt
+*.jar
 
 ## Exemptions
 !license/description.txt
@@ -11,3 +12,4 @@
 ## Directories
 bin/
 output/
+java/*.class
