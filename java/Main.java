@@ -309,7 +309,21 @@ public class Main extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				JFileChooser chooser = new JFileChooser();
+				JFileChooser chooser;
+				if (!inputFileTextField.getText().equals("")) {
+					String currentFilePath = "";
+					File currentFile = new File(inputFileTextField.getText ());
+					if (currentFile.exists ()) {
+						currentFilePath = currentFile.getParentFile().getAbsolutePath ();
+					 	chooser = new JFileChooser(currentFilePath);
+					}
+					else {
+						chooser = new JFileChooser ();
+					}
+				}
+				else {
+					chooser = new JFileChooser ();
+				}
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
 					"bibtex and csv files", "bib", "csv");
 				chooser.setFileFilter(filter);
@@ -344,7 +358,20 @@ public class Main extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent ev) {
-				JFileChooser chooser = new JFileChooser();
+				JFileChooser chooser;
+				if (!outputDirectoryTextField.getText().equals("")) {
+					File currentDir = new File (outputDirectoryTextField.getText());
+					if (currentDir.exists ()) {
+						String currentDirPath = currentDir.getAbsolutePath ();
+						chooser = new JFileChooser (currentDirPath);
+					}
+					else {
+						chooser = new JFileChooser ();
+					}
+				}
+				else {
+					chooser = new JFileChooser ();
+				}
 				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				// FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				// 	"bibtex and csv files", "bib", "csv");

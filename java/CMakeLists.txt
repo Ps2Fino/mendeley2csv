@@ -11,7 +11,7 @@ cmake_minimum_required (
 project (
     bib2xyz-gui
     VERSION
-        0.1
+        0.2
     LANGUAGES
         NONE
 )
