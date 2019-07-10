@@ -72,12 +72,6 @@ class MSWordHandler (xml.sax.ContentHandler):
 		if self.current_data_tag == 'b:Year':
 			self.current_entry['year'] = content.strip ()
 
-		if self.current_data_tag == 'b:First':
-			self.current_author['first'] = content.strip ()
-
-		if self.current_data_tag == 'b:Last':
-			self.current_author['last'] = content.strip ()
-
 		if self.current_data_tag == 'b:StandardNumber':
 			self.current_entry['doi'] = content.strip ()
 
