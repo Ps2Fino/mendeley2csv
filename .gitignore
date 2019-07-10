@@ -3,6 +3,7 @@
 *.bib
 *.txt
 *.jar
+*.xml
 
 ## Exemptions
 !license/description.txt
