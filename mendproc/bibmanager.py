@@ -9,6 +9,7 @@ import importlib
 import re
 from mendproc.parsers.bibtexparser import BibTexParser
 from mendproc.parsers.csvparser import CSVParser
+from mendproc.parsers.mswordxmlparser import MSWordXMLParser
 from mendproc import Parsers
 
 ## Internal manager over the bib dictionary

@@ -5,5 +5,6 @@ __all__ = ['bibmanager']
 # here and implement the module in the parsers folder
 Parsers = {
     'bibtex': 'mendproc.parsers.bibtexparser.BibTexParser',
-    'csv': 'mendproc.parsers.csvparser.CSVParser'
+    'csv': 'mendproc.parsers.csvparser.CSVParser',
+    'xml': 'mendproc.parsers.mswordxmlparser.MSWordXMLParser'
 }
