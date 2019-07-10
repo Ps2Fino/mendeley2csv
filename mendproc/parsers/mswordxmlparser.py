@@ -56,7 +56,7 @@ class MSWordHandler (xml.sax.ContentHandler):
 			self.current_entry['author'] = ''.join (authors)
 
 		if name == 'b:Source':
-			self.entries.append (self.current_entry)
+			self.entries.append (self._clean_data (self.current_entry))
 
 
 	def characters (self, content):
@@ -100,6 +100,19 @@ class MSWordHandler (xml.sax.ContentHandler):
 		else:
 			return (bibkey)
 
+	def _clean_data (self, entry):
+		entry['keywords'] = entry['keywords'].replace ('\\', '\\\\')
+		entry['bibkey'] = entry['bibkey'].replace ('\\', '\\\\')
+		entry['type'] = entry['type'].replace ('\\', '\\\\')
+		entry['abstract'] = entry['abstract'].replace ('\\', '\\\\')
+		entry['author'] = entry['author'].replace ('\\', '\\\\')
+		entry['year'] = entry['year'].replace ('\\', '\\\\')
+		entry['title'] = entry['title'].replace ('\\', '\\\\')
+		# entry['doi'] = entry['doi'].replace ('\\', '\\\\')
+		# entry['url'] = entry['url'].replace ('\\', '\\\\')
+
+		return (entry)
+
 
 class MSWordXMLParser (_BibParser):
 	def __init__ (self, data_type):
@@ -119,6 +132,7 @@ class MSWordXMLParser (_BibParser):
 
 		## One liner as SAX does all the hard work
 		xml.sax.parseString (''.join (lines), self.MSWordHandler)
+		# print (self.MSWordHandler.entries)
 		return (self.MSWordHandler.entries)
 
 	## Inverse operation of bib2dict

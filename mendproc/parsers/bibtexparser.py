@@ -29,6 +29,7 @@ class BibTexParser (_BibParser):
     ## Extend this to escape special characters
     def _clean_info (self, line):
         clean_info = line.replace ("“", '\"')
+        clean_info = clean_info.replace ('\\', '\\\\')
         return (clean_info)
 
     def _match_pattern (self, pattern, line):
