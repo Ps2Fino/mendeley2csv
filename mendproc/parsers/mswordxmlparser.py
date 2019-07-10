@@ -8,7 +8,7 @@
 import sys
 import os
 import xml.sax
-import json
+import re
 from mendproc.parsers.bibparser import _BibParser
 
 ## This is the content handler for the data output by Mendeley.
@@ -66,9 +66,6 @@ class MSWordHandler (xml.sax.ContentHandler):
 		if self.current_data_tag == 'b:Last':
 			self.current_author['last'] = content.strip()
 
-		if self.current_data_tag == 'b:SourceType':
-			pass
-
 		if self.current_data_tag == 'b:Title':
 			self.current_entry['title'] = content.strip ()
 
@@ -85,7 +82,7 @@ class MSWordHandler (xml.sax.ContentHandler):
 			self.current_entry['doi'] = content.strip ()
 
 		if self.current_data_tag == 'b:Tag':
-			self.current_entry['bibkey'] = content.strip ()
+			self.current_entry['bibkey'] = self._regex_bib_key (content.strip ())
 
 		if self.current_data_tag == 'b:SourceType':
 			self.current_entry['type'] = self._translate_source_type (content.strip ())
@@ -101,6 +98,14 @@ class MSWordHandler (xml.sax.ContentHandler):
 			return ('book')
 
 		return ('misc')
+
+	def _regex_bib_key (self, bibkey):
+		match = re.search(pattern=r'\w+-\d+(?=-)', string=bibkey)
+		if match:
+			return (match.group (0))
+		else:
+			return (bibkey)
+
 
 class MSWordXMLParser (_BibParser):
 	def __init__ (self, data_type):
