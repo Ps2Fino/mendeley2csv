@@ -24,7 +24,7 @@ class BibManager ():
 	def dump_keywords (self, lowercase=True):
 		keywords = []
 		for entry in self.entries:
-			if entry['keywords'] is not '':
+			if entry['keywords'] != '':
 				keyword_list = entry['keywords'].split (',')
 				for keyword in keyword_list:
 					if lowercase:
@@ -37,7 +37,7 @@ class BibManager ():
 	def cutoff_year (self, year, inclusive=True):
 		entries = []
 		for entry in self.entries:
-			if entry['year'] is not '':
+			if entry['year'] != '':
 				int_year = int (entry['year'])
 				if inclusive:
 					if int_year >= year:
@@ -57,7 +57,7 @@ class BibManager ():
 		compiled_pattern = re.compile (pattern)
 		entries = []
 		for entry in self.entries:
-			if entry['keywords'] is not '':
+			if entry['keywords'] != '':
 				match_obj = compiled_pattern.search (entry['keywords'])
 				if match_obj:
 					entries.append (entry)
